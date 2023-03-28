@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import TestComp from "./components/TestComp";
+import { Suspense } from "react";
 
 function App() {
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const [data, setData] = useState(null);
+
+  const getData = () => {
+    const suspender = fetch(`https://jsonplaceholder.typicode.com/todos/1`)
+      .then((response) => response.json())
+      .then((res) => setData(res));
+
+    return {
+      kkk() {
+        if (data === null) {
+          throw suspender;
+        } else {
+          return data;
+        }
+      },
+    };
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Suspense fallback={<h1>fallback element</h1>}>
+        <TestComp data={getData()} />
+      </Suspense>
     </div>
   );
 }
