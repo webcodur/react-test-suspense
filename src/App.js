@@ -1,34 +1,28 @@
-import { useState, useEffect } from "react";
-import TestComp from "./components/TestComp";
+import { useState, useEffect, lazy } from "react";
 import { Suspense } from "react";
 
+const TestComp = lazy(() => import("./components/TestComp")); // Lazy-loaded
+
 function App() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const getData = async () => {
+    await fetch(`https://jsonplaceholder.typicode.com/todos/1`)
+      .then((response) => response.json())
+      .then((res) => {
+        setData(res);
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     getData();
   }, []);
 
-  const [data, setData] = useState(null);
-
-  const getData = () => {
-    const suspender = fetch(`https://jsonplaceholder.typicode.com/todos/1`)
-      .then((response) => response.json())
-      .then((res) => setData(res));
-
-    return {
-      kkk() {
-        if (data === null) {
-          throw suspender;
-        } else {
-          return data;
-        }
-      },
-    };
-  };
-
   return (
     <div className="App">
       <Suspense fallback={<h1>fallback element</h1>}>
-        <TestComp data={getData()} />
+        {!loading && <TestComp data={data} />}
       </Suspense>
     </div>
   );
