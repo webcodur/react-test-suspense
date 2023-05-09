@@ -1,29 +1,58 @@
-import { useState, useEffect, lazy } from "react";
-import { Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
+import useIntersectionObserver from "../src/hooks/useIntersectionObserver";
 
 const TestComp = lazy(() => import("./components/TestComp")); // Lazy-loaded
+const blackBackGround = {
+  color: "yellow",
+  backgroundColor: "black",
+  width: "300px",
+  height: "100px",
+  lineHeight: "100px",
+};
 
 function App() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAppeared, setIsAppeared] = useState(false);
+
   const getData = async () => {
     await fetch(`https://jsonplaceholder.typicode.com/todos/1`)
       .then((response) => response.json())
       .then((res) => {
         setData(res);
-        setLoading(false);
+      })
+      .then(() => {
+        setIsLoading(false);
       });
   };
 
+  // SET OBSERVER
+  const onIntersect = async ([{ isIntersecting }]) => {
+    if (isIntersecting) {
+      setIsAppeared(true);
+    }
+  };
+  const { setTarget } = useIntersectionObserver({ onIntersect });
   useEffect(() => {
-    getData();
-  }, []);
+    if (isAppeared) {
+      getData();
+    }
+  }, [isAppeared]);
 
   return (
     <div className="App">
-      <Suspense fallback={<h1>fallback element</h1>}>
-        {!loading && <TestComp data={data} />}
-      </Suspense>
+      <h1>hello</h1>
+      <h1>hello</h1>
+      <h1>hello</h1>
+      <h1>hello</h1>
+      <h1>hello</h1>
+      <h1>hello</h1>
+      <h1>hello</h1>
+      <div ref={setTarget} style={blackBackGround}>
+        <Suspense fallback={<h1>loading</h1>}>
+          {!isLoading && <TestComp data={data} />}
+        </Suspense>
+      </div>
     </div>
   );
 }
