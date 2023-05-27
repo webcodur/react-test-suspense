@@ -1,1 +1,1 @@
-lazy 와 suspense 를 테스트하는 공간
+lazy & suspense 테스트하는 예제 프로젝트입니다.
