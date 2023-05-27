@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksuspense_test=self.webpackChunksuspense_test||[]).push([[595],{595:function(e,s,t){t.r(s);var n=t(184);s.default=function(e){var s=e.data;return(0,n.jsx)("h1",{children:s.title})}}}]);
+//# sourceMappingURL=595.6f0fcf53.chunk.js.map

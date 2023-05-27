@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/react-test-suspense/static/css/main.e6c13ad2.css",
+    "main.js": "/react-test-suspense/static/js/main.806c675f.js",
+    "static/js/595.6f0fcf53.chunk.js": "/react-test-suspense/static/js/595.6f0fcf53.chunk.js",
+    "index.html": "/react-test-suspense/index.html",
+    "main.e6c13ad2.css.map": "/react-test-suspense/static/css/main.e6c13ad2.css.map",
+    "main.806c675f.js.map": "/react-test-suspense/static/js/main.806c675f.js.map",
+    "595.6f0fcf53.chunk.js.map": "/react-test-suspense/static/js/595.6f0fcf53.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.806c675f.js"
+  ]
+}
